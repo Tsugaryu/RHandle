@@ -1,0 +1,77 @@
+div.accueil h1{
+	color: mediumseagreen;
+	font-size: 400%;
+	text-align: center;
+	border: 2px solid mediumseagreen;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	padding: 20px;
+	margin-left: 30%;
+	margin-right: 30%;
+	border-radius: 10px;
+}
+
+
+/*La classe connector permet de bien ordenencé les éléments dans une boite (<div class=connector>) pour présenter "correctement" le bloc de connexion. 
+	Un titre dans connexion est représenté par la balise <<<<<<<<<<< h2 >>>>>>>>>>>>>
+	Le style des input est modifié
+	Le texte est actuellement inchangé.
+*/
+
+div.connector{
+	border: 2px solid mediumseagreen; /* Bordure de 2px en vert */
+	border-radius: 10px; /* Arondissement des coins */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Ombre pour détacher le bloc de connexion de l'arriere plan */
+	padding: 30px; 
+	margin-top: 5%;     /* Alignement du bloc de connexion */
+	margin-left: 35%;
+	margin-right: 35%;
+	text-align: left;
+}
+div.connector h2{ /* Presentation des titres */
+	font-size: 200%;
+	color: mediumseagreen;
+	text-align: center;
+}
+
+div.connector input[type=text] { /* Presentation des input */
+    border: none;
+    border-bottom: 1px solid gray;
+    padding: 5px;
+}
+
+div.connector button{ /* Bouton au milieu et texte centré à l'intérieur */
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	color: mediumseagreen;
+	box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 9px 23px 0 rgba(0, 0, 0, 0.30);
+	border: 2px solid mediumseagreen;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+
+div.sidebar ul{
+	list-style-type: none;
+    margin: 3%;
+    padding: 0;
+    width: 200px;
+    background-color: mediumseagreen;
+}
+
+div.sidebar li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+div.sidebar li a:hover {
+    background-color: forestgreen;
+    color: white;
+}
+
+div.messagesliste{
+
+}
