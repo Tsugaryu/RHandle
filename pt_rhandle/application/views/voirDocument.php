@@ -1,5 +1,6 @@
+<!--@author Axel DURAND-->
 <section>
-		<h2> <strong> Document  </strong></h2>
+		<h2> <strong> Document : <?php echo $nomDocument ?> </strong></h2>
 			
 			<!-- mettreles infos du document -->
 			<ul>

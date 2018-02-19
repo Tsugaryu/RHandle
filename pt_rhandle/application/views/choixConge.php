@@ -1,4 +1,4 @@
-<!-- Auteur:Axel Durand-->
+<!--@author Axel DURAND-->
 			<form method="POST" action="http://www.iut-fbleau.fr/sitebp/post.php" enctype="application/x-www-form-urlencoded" >
 				<label>
 				Demande:

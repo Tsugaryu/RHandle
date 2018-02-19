@@ -1,3 +1,4 @@
+<!--@author Axel DURAND-->
  <!-- 
 La class every-people applique l effet sur toutes les personnes 
 La class only RH sont des attributs visibles uniquement par les RH 

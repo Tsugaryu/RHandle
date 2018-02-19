@@ -1,49 +1,48 @@
-<section>
-		<h2> <strong>  Créer une mission</strong></h2>
+<!--Auteur:Axel Durand, Nicolas Reszka-->
+
+<h2> <b> Créer une mission</b></h2>
 			
-			<form method="POST" action="http://www.iut-fbleau.fr/sitebp/post.php" enctype="application/x-www-form-urlencoded" >
-			
-			     
+<?php echo form_open('CreerMission/create_mission'); ?>
 					   
-				  <label>
-				 Nom Mission<input type="text" name="doc" value="" maxlength="52" placeholder="" />	<br />
-				 </label>
-				 
-				  <label>
-				 Type de la mission
-				 </label>
-				 <!-- définir les types de missions-->
-				 <SELECT name="type_mission" size="1">
-						<OPTION>Réunions
-						<OPTION>Consultation
-						<OPTION>Mission
-						<OPTION>Convocation
-						<OPTION>Autre? <!--<input type="text" name="other_nature" value=""  placeholder=""  />   -->
-					</SELECT><br />
-					
-					
-						 
-				  <label> 
-					Debut de la mission:<input type="date" name="mission_debut" value=""   required />	<br />
-				  </label>
-					    
-				  <label>
-					Fin de la mission:<input type="date" name="mission_end" value=""   required />	<br />
-				 </label>
-				 
-				 <label>
-					Périodicité:<input type="number" name="periode" value=""   required />	<br />
-				 </label>
-				 
-				 <!-- comment lui faire ajouter une liste de collaborateur ?-->
-				 <label>
-					Collaborateur:<input type="number" name="periode" value=""    />	<br />
-				 </label>
-				 <label>
-				 <input type="submit" value="Envoyer" name="send" />
-				</label>				 
-					
-				</form>
-			
+	<label for="mission_name">
+		Nom
+	</label>
+	<input type="text" name="mission_name" id="mission_name" value="" maxlength="52" placeholder=""/>	
+	<br />
+	 
+	<label for="mission_nature">
+		Type de la mission
+	</label>
+	 <!-- définir les types de missions-->
+	 <SELECT name="mission_nature" id="mission_nature">
+			<OPTION value="Réunions">Réunions</OPTION>
+			<OPTION value="Consultation">Consultation</OPTION>
+			<OPTION value="Mission">Mission</OPTION>
+			<OPTION value="Convocation">Convocation</OPTION>
+	</SELECT><br />
 		
-		</section>
+	<!-- <label for="mission_priority">
+		Priorité :
+	</label>
+    <input type="number" name="mission_priority" id="mission_priority" required=""> <br>
+ -->
+	<label for="mission_date">
+		Date de la mission :
+	</label>
+	<input type="date" name="mission_date" id="mission_date" value=""   required />	<br />
+	
+	<label for="mission_duration">
+		Durée de la mission :
+	</label>
+    <input type="number" name="mission_duration" id="mission_duration" required=""> <br>
+
+	<label for="mission_collaborators">
+		Collaborateurs (entrer les noms complets séparés par des virgules) :
+	</label>
+	<input type="text" name="mission_collaborators" id="mission_collaborators">	<br />
+
+	<button type="submit" name="submit">
+    	Inscrire
+	</button>
+				 				
+<?php echo form_close(); ?>

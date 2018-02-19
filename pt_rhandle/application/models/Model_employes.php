@@ -1,5 +1,5 @@
 <?php
-class 	model_employes extends CI_Model 
+class 	Model_employes extends CI_Model 
 {
 
 	public 	function __construct() 
@@ -7,6 +7,7 @@ class 	model_employes extends CI_Model
 		parent::__construct();
 		$this->load->database();
 		$this->load->library('email');
+		$this->load->helper('string');
 	}
 	
 	/* 	login($data)
@@ -29,7 +30,8 @@ class 	model_employes extends CI_Model
 		$data['password'] = $salt;
 
 		$this->db->select('*');
-		$this->db->from('rhandle_employes');
+		//$this->db->from('rhandle_employes');
+		$this->db->from('Employe');
 		$this->db->where("mail", $data['email']);
 		$this->db->where("pwd", $data['password']);
 		$this->db->limit(1);
@@ -75,7 +77,8 @@ class 	model_employes extends CI_Model
 		$password = random_string('alnum', 8);
 		$data['pwd'] = sha1($password);
 
-		$this->db->insert('rhandle_employes', $data);
+		//$this->db->insert('rhandle_employes', $data);
+		$this->db->insert('Employe', $data);
 
 		if ($this->db->affected_rows() > 0)
 		{	
@@ -90,12 +93,13 @@ class 	model_employes extends CI_Model
 			);
 			$this->email->send();
 
-			return TRUE;
+			return true;
 		}
 		else
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
 }
+?>

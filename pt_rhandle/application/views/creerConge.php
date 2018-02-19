@@ -1,4 +1,4 @@
-<!--Auteur:Axel Durand -->
+<!--@author Axel DURAND-->
 <section>
 		<h2> <strong>  Demander un congé</strong></h2>
 			

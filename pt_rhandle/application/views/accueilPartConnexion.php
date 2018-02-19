@@ -1,4 +1,4 @@
-<!--Auteur:Axel Durand-->
+<!--@author Axel DURAND-->
 <section>
 		<h2> <strong> Connexion </strong></h2>
 			

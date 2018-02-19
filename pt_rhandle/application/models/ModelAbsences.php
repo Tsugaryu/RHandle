@@ -43,3 +43,4 @@ class ModelAbsences extends CI_Model{
 	}
 
 }
+?>

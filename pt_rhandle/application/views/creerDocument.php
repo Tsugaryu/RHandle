@@ -1,4 +1,4 @@
-<!-- Auteur:Axel Durand-->
+<!--@author Axel DURAND-->
 <section>
 		<h2> <strong>  Créer un document</strong></h2>
 			

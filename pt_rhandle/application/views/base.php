@@ -1,4 +1,3 @@
-<!--Auteur: Nicolas Reszka/Guillaume Cau -->
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>

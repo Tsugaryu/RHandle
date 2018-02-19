@@ -1,6 +1,6 @@
-<!--@author Axel DURAND-->
+<!--Auteur :Benjamin et Axel-->
 <section>
-		<h2> <strong> Profil de <?php echo $genre;?> <?php echo $prenom;?> <?php echo $nom;?> </strong></h2>
+		<h2> <strong> Profil de <?php echo $genre;?> <?php echo $prenom;?> <?php echo $nom;?>,<?php if(statut==0)echo "Employé";else if(statut==1)echo "Membre des Ressources Humaines";else if(statut==2)echo "Chef de ¨Projet;";else if(statut==3)echo "Président"; </strong></h2>
 		
 		<!--   Afficher les différents champs			-->
 		<ul>
@@ -8,7 +8,7 @@
 		<li> Mail: <?php echo $mail;?></li>
 		<li>Telephone:  <?php echo $numero;?> </li>
 		<?php 
-		if($statut==numeroRH ||$statut=numeroDirecteur){
+		if($statut==1 ||$statut=3){
 			echo "<li>Lieu de Naissance". $lieu ."</li>";
 			echo "<li>Nationalité". $nationalite ."</li>";
 			echo "<li>RIB". $rib ."</li>";

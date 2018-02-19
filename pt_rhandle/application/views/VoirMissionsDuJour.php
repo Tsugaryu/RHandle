@@ -8,10 +8,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
-<div id="calendar">
+<div id="schedule">
 	<?php 
-		if (isset($calendar)) {
-			echo $calendar;
+		if (isset($missions)) {
+			print_r($missions);
 		}
 	?>
 </div>
@@ -19,15 +19,16 @@
 <script>
 	var lastID = <?php echo intval($last_id,10); ?>;
 
-	function refresh_calendar()
+	function refresh_schedule()
 	{
 		/* Demander au serveur si de nouvelles missions ont été ajoutées */
 		$.ajax({
 			type: "POST",
-			url: "<?php echo base_url(); ?>" + "index.php/Agenda/refresh_calendar",
+			url: "<?php echo base_url(); ?>" + "index.php/VoirMissionsDuJour/refresh_schedule",
 			data: {
 				year:<?php echo intval($year,10); ?>,
 				month:<?php echo intval($month,10); ?>,
+				day:<?php echo intval($day,10); ?>,
 				last_id:lastID
 			}
 		}).done(
@@ -41,18 +42,20 @@
 				/* De nouvelles missions ont été ajoutées */
 				if (data.updated == true)
 				{
-					
 					/* Actualiser le lastID */
 					lastID = data.new_last_id;
 
 					/*console.log("lastID = " + lastID);*/
 
-					/* Afficher les nouvelles missions */
+					/* Vider la liste des missions */
+					$("#schedule").empty();
+
+					/* Afficher les missions */
 					for (let i = 0; i < data.new_missions.length; i++)
 					{
 						let temp_mission = data.new_missions[i];
 
-						$("#"+temp_mission["DAY(dateDebut)"]).append(
+						$("#schedule").append(
 							"<br><a href='"
 							+"<?php echo base_url(); ?>" 
 							+ "index.php/VoirMission/index/" 
@@ -65,13 +68,13 @@
 				}
 
 				/* Rafraichir toutes les 5 secondes */
-				setTimeout(refresh_calendar, 5000);
+				setTimeout(refresh_schedule, 5000);
 			}
 		);
 	}
 
 	$(document).ready(
-		refresh_calendar()
+		refresh_schedule()
 	);	
 
 </script>

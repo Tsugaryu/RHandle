@@ -1,3 +1,4 @@
+		<!--@author Axel DURAND-->
 		<section>
 		<h2> <strong> Absence de <?php echo $genre;?> <?php echo $prenom;?> <?php echo $nom;?></strong></h2>
 

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class 	connexion extends CI_Controller {
+class 	Connexion extends CI_Controller {
 
 	public 	function __construct() 
 	{
@@ -12,7 +12,7 @@ class 	connexion extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('session');
 
-		$this->load->model('model_employes');
+		$this->load->model('Model_employes');
 	}
 
 
@@ -23,15 +23,18 @@ class 	connexion extends CI_Controller {
 	{
 		if ($this->session->logged_in == TRUE)
 		{
-			//Redirect
+			print("already logged in");
+			redirect('Agenda');
 		} 
 		else 
 		{
+			print("not logged in");
 			$base_data['title'] = "Connexion";
 			$this->load->view('base', $base_data);
-			$this->load->view('login');
-			$this->load->view('footer');
 
+			$view_data['login_error'] = "";
+			$this->load->view('connexion', $view_data)
+			$this->load->view('footer');
 		}
 	}
 
@@ -46,45 +49,54 @@ class 	connexion extends CI_Controller {
 	public 	function login() 
 	{
 		$this->form_validation->set_rules(
-			'email', 
+			'login_email', 
 			'Email', 
-			'trim|required|xss_clean'
+			'trim|required'
 		);
 		$this->form_validation->set_rules(
-			'password', 
+			'login_password', 
 			'Password', 
-			'trim|required|xss_clean'
+			'trim|required'
 		);
 
 		if ($this->form_validation->run() == FALSE) 
 		{
 			$this->index();
+			print("lol nope");
 		} 
 		else 
 		{
-			$user_data = array(
-				'email' => $this->input->post('email'),
-				'password' => $this->input->post('password')
+			$user_data = $this->security->xss_clean(
+				array(
+					'email' => $this->input->post('login_email'),
+					'password' => $this->input->post('login_password')
+				)
 			);
 
-			$user = $this->model_employes->login($user_data);
+			/* Connecter l'utilisateur */
+			$user = $this->Model_employes->login($user_data);
 
+			print_r($user);
 			if ($user == FALSE) 
 			{
-				//Erreur
-			} 
-			else 
+				$base_data['title'] = "Connexion";
+				$this->load->view('base', $base_data);
+
+				$view_data['login_error'] = "Error";
+				$this->load->view('connexion', $view_data);
+			}
+			else
 			{
 				$session_data = array(
 					'id'		=> $user[0]->id,
 					'email'     => $user[0]->email,
 					'name'		=> $user[0]->prenom.' '.$user[0]->nom,
+					'status'	=> $user[0]->statut,
 					'logged_in' => TRUE
 				);
 				$this->session->set_userdata($session_data);
-				//Redirect vers l'accueil
+				print("logged !");
 				redirect('Accueil');
-
 			}
 		}	
 	}
@@ -101,6 +113,8 @@ class 	connexion extends CI_Controller {
 		session_destroy();
 		redirect('login');
 	}
+
+	
 }
 
 ?>

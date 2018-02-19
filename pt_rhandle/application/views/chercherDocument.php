@@ -1,4 +1,4 @@
-<!--Auteur:Axel Durand-->
+<!--@author Axel DURAND-->
 	<section>
 		<a href="creerDocument.html" >Créer Document</a>
 		<h2> <strong>  Rechercher Document</strong></h2>

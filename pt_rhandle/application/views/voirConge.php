@@ -1,6 +1,7 @@
+<!--@author Axel DURAND-->
 <section>
 		
-		<h2> <strong> Congé de <?php echo $genre;?> <?php echo $prenom;?> <?php echo $nom;?> </strong></h2>
+		<h2> <strong> Congé de <?php ?> </strong></h2>
 			
 			<p>
 			Début: <?php echo $debut;?> <br />

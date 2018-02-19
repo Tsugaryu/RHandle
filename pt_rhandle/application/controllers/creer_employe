@@ -1,0 +1,145 @@
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class 	creer_employe extends CI_Controller {
+
+	public 	function __construct() 
+	{
+		parent::__construct();
+		$this->load->helper('form');
+		$this->load->helper('url');
+		$this->load->library('form_validation');
+		$this->load->library('session');
+
+		$this->load->model('model_employes');
+	}
+
+	/**
+	**	@author  Nicolas Reszka
+	**/
+	public 	function index() 
+	{
+		if ($this->session->logged_in == FALSE)
+		{
+			redirect("connexion");
+		} 
+		else if ($this->session->status < 1)
+		{
+			//redirect
+		}
+		else
+		{
+			$base_data['title'] = "Inscrire un employé";
+			$this->load->view('base', $base_data);
+			$this->load->view('Navigation');
+			$this->load->view('creer_employe');
+			$this->load->view('footer');
+		}
+	}
+
+	/**
+	**	@author  Nicolas Reszka
+	**	Valide le formulaire d'inscription
+	**	insert les données du formulaire dans la base de données 
+	**	puis gère les erreurs
+	**/
+	public 	function create_employee()
+	{
+		$this->form_validation->set_rules(
+			'employee_first_name', 
+			'EmployeeFristName', 
+			'trim|required|xss_clean'
+		);
+
+		$this->form_validation->set_rules(
+			'employee_last_name', 
+			'EmployeeLastName', 
+			'trim|required|xss_clean'
+		);
+
+		$this->form_validation->set_rules(
+			'employee_social_security_number', 
+			'EmployeeSocialSecurityNumber', 
+			'trim|required|xss_clean'
+		);
+
+		$this->form_validation->set_rules(
+			'employee_address', 
+			'EmployeeAddress', 
+			'trim|required|xss_clean'
+		);
+
+		$this->form_validation->set_rules(
+			'employee_bank_id', 
+			'EmployeeBankID', 
+			'trim|required|xss_clean'
+		);
+
+		$this->form_validation->set_rules(
+			'employee_telephone', 
+			'EmployeeTelephone', 
+			'trim|required|xss_clean'
+		);
+
+
+		$this->form_validation->set_rules(
+			'employee_email', 
+			'EmployeeEmail', 
+			'trim|required|xss_clean'
+		);
+
+		$this->form_validation->set_rules(
+			'employee_sex', 
+			'EmployeeSex', 
+			'trim|required|xss_clean'
+		);
+
+		$this->form_validation->set_rules(
+			'employee_birthday', 
+			'EmployeeBirthday', 
+			'trim|required|xss_clean'
+		);
+
+		$this->form_validation->set_rules(
+			'employee_nationality', 
+			'EmployeeNationality', 
+			'trim|required|xss_clean'
+		);
+
+		
+		if ($this->form_validation->run() == FALSE) 
+		{
+			$this->index();
+		} 
+		else
+		{
+			$mission_data = array(
+				'nom'			=> $this->session->userdata('employee_last_name'),
+				'prenom' 		=> $this->session->userdata('employee_first_name'),
+				'numSS'			=> $this->input->post('employee_social_security_number'),
+				'adresse'		=> $this->input->post('employee_address'),
+				'RIB'			=> $this->input->post('employee_bank_id'),
+				'telephone'		=> $this->input->post('employee_telephone'),
+				'mail'			=> $this->input->post('employee_email'),
+				'genre'			=> $this->input->post('employee_sex'),
+				'naissance' 	=> $this->input->post('employee_birthday'),
+				'nationalite'	=> $this->input->post('employee_nationality')
+			);
+
+			/* Insertion dans la table des missions */
+			$insert_success = this->model_employes->create_employee($mission_data);
+
+			/* Gestion des erreurs */
+			if ($insert_success == FALSE)
+			{
+				//Erreur
+			}
+			else 
+			{
+				//Succès
+			}
+		}
+	}
+}
+
