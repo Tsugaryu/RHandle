@@ -24,10 +24,6 @@ class 	Liste_conge extends CI_Controller {
 		{
 			redirect("connexion");
 		} 
-		/*else if ($this->session->status < 1)
-		{
-			//redirect
-		}*/
 		else
 		{
 			$base_data['title'] = "Liste des congés";//regarder ce que c est 
@@ -48,7 +44,16 @@ class 	Liste_conge extends CI_Controller {
 	{
 			$data = array();
 			//recuperation de la liste des conges
-			$data['Conge']= $this->ModelConge->get_all_conge();
+			$buffer;
+			$data['Conge']= $this->ModelConge->get_all_asking_conge();
+			foreach ($data['Conge'] as $line ) {
+				$buffer=$this->ModelConge->get_name_by_id($line->idEmploye);
+				$line->nom=$buffer[0]->nom;
+				$buffer=$this->ModelConge->get_prenom_by_id($line->idEmploye);
+				$line->prenom=$buffer[0]->prenom;
+				$buffer=$this->ModelConge->get_conge_obtenu_by_id($line->idEmploye);
+				$line->resteConge=$buffer[0]->nbrCongeObtenu;
+			}
 			//	On inclut une vue
 			$this->load->view('listeConge', $data);
 	}
@@ -58,7 +63,7 @@ class 	Liste_conge extends CI_Controller {
 	**/
 		public 	function valid_conge ($id_employe,$id_conge,$etat)
 	{
-				
+			$this->ModelConge->update_conge($id_employe,$id_conge,$etat);	
 	
 	}
 }

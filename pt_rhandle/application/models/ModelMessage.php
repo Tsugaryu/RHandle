@@ -31,10 +31,10 @@ class ModelMessage extends CI_Model{
 		$this->db->delete('Message');
 
 	}
-	public function get_all_message($idEmissaire){
+	public function get_all_message_user($idDestinataire){
 		$this->db->select('*');
 		$this->db->from('Message');
-		$this->db->where('idEmissaire'=>$idEmissaire);
+		$this->db->where('idDestinataire'=>$idDestinataire);
 		$query = $this->db->get();
 		if ($query->num_rows() > 0)
 		{
@@ -45,6 +45,39 @@ class ModelMessage extends CI_Model{
 			return false;
 		}
 	}
+	public function get_prenom_emissaire($id){
+		$check="id=".$id;
+			$this->db->select('prenom');
+			$this->db->from(' Employe');
+			$this->db->where($check);
+			$query = $this->db->get();
+			if ($query->num_rows() > 0)
+			{
+				return $query->result();
+			} 
+			else 
+			{
+				return false;
+			}
+
+
+	}
+		public function get_nom_emissaire($id){
+			$check="id=".$id;
+			$this->db->select('nom');
+			$this->db->from(' Employe');
+			$this->db->where($check);
+			$query = $this->db->get();
+			if ($query->num_rows() > 0)
+			{
+				return $query->result();
+			} 
+			else 
+			{
+				return false;
+			}
+	}
+
 
 	}
 ?>

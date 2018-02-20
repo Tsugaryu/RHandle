@@ -2,19 +2,33 @@
 <?php echo form_open('Envoyer_message/create_message'); ?>
 	<table>
 		<tr>
+		<td>
 			<label>
 				Destinataire:
 			</label>
+		</td>
+		<td>
 			<input type="text" name="message_dst" id="message_dst">	
-		</tr>
+		</td>
+
+		</tr> <br />
 		<tr>
+			<td>
 			<label>
 				Objet:
 			</label>
+
+			</td>
+			<td>
 			<input type="text" name="message_title" id="message_title">	
+		</td>
+
 		</tr>
 		<tr>
+		<td>
+
 			<textarea cols=150 >
+		</td>
 
 			</textarea>
 		</tr>

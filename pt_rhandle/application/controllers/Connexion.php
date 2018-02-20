@@ -24,7 +24,7 @@ class 	Connexion extends CI_Controller {
 		if ($this->session->logged_in == TRUE)
 		{
 			print("already logged in");
-			redirect('Agenda');
+			redirect('Accueil');
 		} 
 		else 
 		{
@@ -33,7 +33,7 @@ class 	Connexion extends CI_Controller {
 			$this->load->view('base', $base_data);
 
 			$view_data['login_error'] = "";
-			$this->load->view('connexion', $view_data)
+			$this->load->view('connexion', $view_data);
 			$this->load->view('footer');
 		}
 	}

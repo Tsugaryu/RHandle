@@ -32,8 +32,8 @@ class 	Liste_absences extends CI_Controller {
 		{
 			$base_data['title'] = "Liste des absences";//regarder ce que c est 
 			$this->load->view('base', $base_data);//idem
-			$this->load->view('Navigation'),
-			$this->load->view('listeAbsences');
+			$this->load->view('Navigation');
+			$this->liste_absences();
 			$this->load->view('footer');
 		}
 	}
@@ -56,10 +56,19 @@ class 	Liste_absences extends CI_Controller {
 		else
 		{*/
 			$data = array();
+			$buffer;
 			//recuperation de la liste des personnes 
-			$data['all_info'] = $this->ModelAbsences->nomMethode();//qd j aurais accés au model ça changera probablement
+			$data['all_info'] = $this->ModelAbsences->get_all_Absence();//qd j aurais accés au model ça changera probablement
+			foreach ($data['all_info'] as $line ) {
+				$buffer=$this->ModelAbsences->get_name_by_id($line->idEmploye);
+				$line->nom=$buffer[0]->nom;
+				$buffer=$this->ModelAbsences->get_prenom_by_id($line->idEmploye);
+				$line->prenom=$buffer[0]->prenom;
+		
+			}
 		//	On inclut une vue
-		$this->load->view('listeAbscences', $data);
+
+			$this->load->view('listeAbscences', $data);
 			
 		//}
 	}
@@ -69,9 +78,9 @@ class 	Liste_absences extends CI_Controller {
 	**/
 		public 	function delete_absences ($id_employe,$date_debut)
 	{
-			$this->ModelAbsences->nomMethodePourEffacer($id_employe,$date_debut);//qd j aurais accés au model ça changera probablement
+		$this->ModelAbsences->delete_absence($id_employe,$date_debut);//qd j aurais accés au model ça changera probablement
 				
 	
 	}
 }
-
+?>

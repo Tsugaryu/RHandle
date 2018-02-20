@@ -8,6 +8,7 @@ class ModelConge extends CI_Model{
 	public function __construct(){
 		parent::__construct();
 		$this->load->database();
+		
 	}
 	/**
 	*@author  Axel Durand
@@ -101,12 +102,63 @@ class ModelConge extends CI_Model{
 	/**
 	*@author Axel Durand
 	*@return tableau contenant tous les congés et les données de la table qui sont null ou false 
-	**/
-	public function get_all_conge(){
-		//$check="etat=0 OR etat=-1";
+	*
+	*/
+
+		public function get_name_by_id($id){
+			$check="id=".$id;
+			$this->db->select('nom');
+			$this->db->from(' Employe');
+			$this->db->where($check);
+			$query = $this->db->get();
+			if ($query->num_rows() > 0)
+			{
+				return $query->result();
+			} 
+			else 
+			{
+				return false;
+			}
+
+		}
+			public function get_prenom_by_id($id){
+			$check="id=".$id;
+			$this->db->select('prenom');
+			$this->db->from(' Employe');
+			$this->db->where($check);
+			$query = $this->db->get();
+			if ($query->num_rows() > 0)
+			{
+				return $query->result();
+			} 
+			else 
+			{
+				return false;
+			}
+
+		}
+		public function get_conge_obtenu_by_id($id){
+			$check="id=".$id;
+			$this->db->select('nbrCongeObtenu');
+			$this->db->from(' Employe');
+			$this->db->where($check);
+			$query = $this->db->get();
+			if ($query->num_rows() > 0)
+			{
+				return $query->result();
+			} 
+			else 
+			{
+				return false;
+			}
+		}
+
+
+		public function get_all_asking_conge(){
+		$check="etat=0";
 		$this->db->select('*');
 		$this->db->from('Conge');
-		//$this->db->where($check);
+		$this->db->where($check);
 		$query = $this->db->get();
 		if ($query->num_rows() > 0)
 		{

@@ -30,10 +30,10 @@ class 	Liste_message extends CI_Controller {
 		}*/
 		else
 		{
-			$base_data['title'] = "Liste des congés";//regarder ce que c est 
+			$base_data['title'] = "Liste des messages reçus";//regarder ce que c est 
 			$this->load->view('base', $base_data);//idem
 			$this->load->view('Navigation');
-			$this->liste_conge();
+			$this->liste_message();
 			$this->load->view('footer');
 		}
 	}
@@ -44,22 +44,21 @@ class 	Liste_message extends CI_Controller {
 	**	 
 	**	
 	**/
-	public 	function liste_conge()
+	public 	function liste_message()
 	{
 			$data = array();
 			//recuperation de la liste des conges
-			$data['Conge']= $this->ModelConge->get_all_conge();
-			//	On inclut une vue
-			$this->load->view('listeConge', $data);
-	}
-	/**
-	*@author Axel Durand
-	*A appeler quand un RH clique sur une croix pour effacer une notification
-	**/
-		public 	function valid_conge ($id_employe,$id_conge,$etat)
-	{
+			$data['Message']= $this->ModelMessage->get_all_message_user(/*moyen pr récupérer idUser de la session*/);
+				foreach ($data['Message'] as $line ) {
+				$buffer=$this->ModelMessage->get_nom_emissaire($line->idEmploye);
+				$line->nom=$buffer[0]->nom;
+				$buffer=$this->ModelMessage->get_prenom_emissaire($line->idEmploye);
+				$line->prenom=$buffer[0]->prenom;
 				
-	
+			}
+			
+			$this->load->view('Liste_message', $data);
 	}
+
 }
 ?>
