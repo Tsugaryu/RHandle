@@ -35,7 +35,58 @@ class 	Envoyer_message extends CI_Controller {
 
 	public 	function create_message()
 	{
-		
+		print('bombfork');
+		$annee=date("Y");
+		$jour=date("d");
+		$mois=date("m");
+		$current="".$annee."-".$mois."-".$jour;
+		$buffer=$this->ModelMessage->find_employe_by_mail($this->input->post('message_dst'));
+		$this->form_validation->set_rules(
+			'message_dst', 
+			'MessageDestination', 
+			'trim|required'
+		);
+
+		$this->form_validation->set_rules(
+			'message_title', 
+			'MessageTitle', 
+			'trim|required'
+		);
+
+		// $this->form_validation->set_rules(
+		// 	'mission_priority', 
+		// 	'MissionPriority', 
+		// 	'trim|required'
+		// );
+
+		$this->form_validation->set_rules(
+			'contenu', 
+			'Contenu', 
+			'trim|required'
+		);
+
+		if ($this->form_validation->run() == FALSE) 
+		{
+			print("Veuillez remplir les champs requis");
+		} 
+		else{
+			$msg_data=$this->security->xss_clean(
+				array(
+				"idEmissaire" =>$this->session->id,
+				"idDestinataire"=>$buffer[0]->id,
+				"contenu"=>$this->input->post('contenu'),
+				"ecrit"=>$current,
+				"piecejointe"=>"Sans objet",
+				"objet"=>$this->input->post('message_title')
+				)
+
+			);
+			print("\n-- Données envoyées : --\n");
+			print_r($msg_data);
+			$this->ModelMessage->create_message($msg_data);
+		}
+
+
 	}
 	
 		}

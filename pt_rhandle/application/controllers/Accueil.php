@@ -4,7 +4,7 @@
 **/
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class 	Liste_absences extends CI_Controller {
+class 	Accueil extends CI_Controller {
 
 	public 	function __construct() 
 	{

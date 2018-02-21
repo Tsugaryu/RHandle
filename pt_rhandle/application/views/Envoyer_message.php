@@ -8,7 +8,7 @@
 			</label>
 		</td>
 		<td>
-			<input type="text" name="message_dst" id="message_dst">	
+			<input type="mail" name="message_dst" id="message_dst">	
 		</td>
 
 		</tr> <br />
@@ -19,23 +19,24 @@
 			</label>
 
 			</td>
-			<td>
+		<td  >
 			<input type="text" name="message_title" id="message_title">	
 		</td>
 
 		</tr>
 		<tr>
-		<td>
+		<td colspan=2 >
 
-			<textarea cols=150 >
+			<textarea cols=40 name="contenu" >
+			</textarea>
 		</td>
 
-			</textarea>
+			
 		</tr>
 	</table>				   
 	
 	<button type="submit" name="submit">
-    	Inscrire
+    	Envoyer
 	</button>
 				 				
 <?php echo form_close(); ?>

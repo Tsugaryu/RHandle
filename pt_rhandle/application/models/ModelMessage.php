@@ -16,8 +16,8 @@ class ModelMessage extends CI_Model{
 	*
 	*
 	**/
-	public function create_message($data,$idEmissaire){
-		$this->db->insert('Message',$idDemandeur,$data['idDestinataire'],$data['contenu'],$data['ecrit'],$data['etat'],$data['piece_jointe'],$data['objet']);
+	public function create_message($data){
+		$this->db->insert('Message',$data);
 			if ($this->db->affected_rows() > 0) {
 				return true;
 			}
@@ -32,9 +32,10 @@ class ModelMessage extends CI_Model{
 
 	}
 	public function get_all_message_user($idDestinataire){
+		$check="idDestinataire=".$idDestinataire;
 		$this->db->select('*');
 		$this->db->from('Message');
-		$this->db->where('idDestinataire'=>$idDestinataire);
+		$this->db->where($check);
 		$query = $this->db->get();
 		if ($query->num_rows() > 0)
 		{
@@ -65,6 +66,37 @@ class ModelMessage extends CI_Model{
 		public function get_nom_emissaire($id){
 			$check="id=".$id;
 			$this->db->select('nom');
+			$this->db->from(' Employe');
+			$this->db->where($check);
+			$query = $this->db->get();
+			if ($query->num_rows() > 0)
+			{
+				return $query->result();
+			} 
+			else 
+			{
+				return false;
+			}
+	}
+	public function find_employe_by_mail($mail){
+		$check="mail=".$mail;
+			$this->db->select('id');
+			$this->db->from(' Employe');
+			$this->db->where("mail",$mail);
+			$query = $this->db->get();
+			if ($query->num_rows() > 0)
+			{
+				return $query->result();
+			} 
+			else 
+			{
+				return false;
+			}
+
+	}
+	public function find_employe_by_id($id){
+		$check="id=".$id;
+			$this->db->select('mail');
 			$this->db->from(' Employe');
 			$this->db->where($check);
 			$query = $this->db->get();

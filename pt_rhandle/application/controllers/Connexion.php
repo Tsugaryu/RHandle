@@ -96,7 +96,7 @@ class 	Connexion extends CI_Controller {
 				);
 				$this->session->set_userdata($session_data);
 				print("logged !");
-				redirect('Accueil');
+				redirect('Agenda');
 			}
 		}	
 	}
