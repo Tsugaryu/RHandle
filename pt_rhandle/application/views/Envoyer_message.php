@@ -33,6 +33,14 @@
 
 			
 		</tr>
+		<tr>
+			<td>
+				Piece Jointe
+			</td>
+			<td>
+				<input type="file" name="pj" />
+			</td>
+		</tr>
 	</table>				   
 	
 	<button type="submit" name="submit">
