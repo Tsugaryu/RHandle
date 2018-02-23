@@ -35,7 +35,7 @@ class ModelMessage extends CI_Model{
 		$check="idDestinataire=".$idDestinataire;
 		$this->db->select('*');
 		$this->db->from('Message');
-		$this->db->where("idDestinataire",$idDestinataire);
+		$this->db->where($check);
 		$query = $this->db->get();
 		if ($query->num_rows() > 0)
 		{
@@ -50,7 +50,7 @@ class ModelMessage extends CI_Model{
 		$check="id=".$id;
 			$this->db->select('prenom');
 			$this->db->from(' Employe');
-			$this->db->where("id",$id);
+			$this->db->where($check);
 			$query = $this->db->get();
 			if ($query->num_rows() > 0)
 			{
@@ -67,7 +67,7 @@ class ModelMessage extends CI_Model{
 			$check="id=".$id;
 			$this->db->select('nom');
 			$this->db->from(' Employe');
-			$this->db->where("id",$id);
+			$this->db->where($check);
 			$query = $this->db->get();
 			if ($query->num_rows() > 0)
 			{
@@ -98,7 +98,7 @@ class ModelMessage extends CI_Model{
 		$check="id=".$id;
 			$this->db->select('mail');
 			$this->db->from(' Employe');
-			$this->db->where("id",$id);
+			$this->db->where($check);
 			$query = $this->db->get();
 			if ($query->num_rows() > 0)
 			{

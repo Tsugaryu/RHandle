@@ -53,6 +53,11 @@ class 	Liste_conge extends CI_Controller {
 				$line->prenom=$buffer[0]->prenom;
 				$buffer=$this->ModelConge->get_conge_obtenu_by_id($line->idEmploye);
 				$line->resteConge=$buffer[0]->nbrCongeObtenu;
+				//la première étape est de transformer cette date en timestamp
+				$dateDepartTimestamp = strtotime($line->debut);
+				//on calcule la date de fin
+				$dateFin=date('Y-m-d',strtotime('+'.$line->duree.' days', $dateDepartTimestamp ));
+				$line->fin=$dateFin;
 			}
 			//	On inclut une vue
 			$this->load->view('listeConge', $data);
@@ -63,7 +68,8 @@ class 	Liste_conge extends CI_Controller {
 	**/
 		public 	function valid_conge ($id_employe,$id_conge,$etat)
 	{
-			$this->ModelConge->update_conge($id_employe,$id_conge,$etat);	
+			$this->ModelConge->update_conge($id_employe,$id_conge,$etat);
+			redirect('Liste_conge');
 	
 	}
 }

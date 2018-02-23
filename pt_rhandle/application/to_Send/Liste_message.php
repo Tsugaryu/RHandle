@@ -50,9 +50,9 @@ class 	Liste_message extends CI_Controller {
 			//recuperation de la liste des conges
 			$data['message']= $this->ModelMessage->get_all_message_user($this->session->id);/*moyen pr récupérer idUser de la session*/
 			foreach ($data['message'] as $line ) {
-				$buffer=$this->ModelMessage->get_nom_emissaire($line->idEmissaire);
+				$buffer=$this->ModelMessage->get_nom_emissaire($line->idEmploye);
 				$line->nom=$buffer[0]->nom;
-				$buffer=$this->ModelMessage->get_prenom_emissaire($line->idEmissaire);
+				$buffer=$this->ModelMessage->get_prenom_emissaire($line->idEmploye);
 				$line->prenom=$buffer[0]->prenom;
 				
 			}

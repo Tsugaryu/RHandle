@@ -1,55 +1,23 @@
 <?php
 
-class ModelAbsences extends CI_Model{
+class ModelConge extends CI_Model{
 	
 	public function __construct(){
 		parent::__construct();
 		$this->load->database();
 	}
-		public function get_name_by_id($id){
-			$check="id=".$id;
-			$this->db->select('nom');
-			$this->db->from(' Employe');
-			$this->db->where($check);
-			$query = $this->db->get();
-			if ($query->num_rows() > 0)
-			{
-				return $query->result();
-			} 
-			else 
-			{
-				return false;
-			}
-
-		}
-			public function get_prenom_by_id($id){
-			$check="id=".$id;
-			$this->db->select('prenom');
-			$this->db->from(' Employe');
-			$this->db->where($check);
-			$query = $this->db->get();
-			if ($query->num_rows() > 0)
-			{
-				return $query->result();
-			} 
-			else 
-			{
-				return false;
-			}
-		}
-
 
 	//incomplete
-/*	public function createAbsence($data,$idDemandeur){
+	public function createAbsence($data,$idChef){
 		$state=null;
 		$checkUn = (
-			"idEmployé = '" .$idDemandeur
+			"idEmployé = '" .$idChef
 			. "' AND date >= '" .  $data['jour']
 			."'" 
 			
 		);
 		
-		if(nombre_abscence($idDemandeur)<10){
+		if(nombre_abscence($idChef)<10){
 		$checkDeux;
 		$this->db->select('*');
 		$this->db->from('TypeMission');
@@ -59,7 +27,7 @@ class ModelAbsences extends CI_Model{
 		$query = $this->db->get();
 
 		if ($query->num_rows() > 0) {
-			$this->db->insert('Absence',$idDemandeur,$data['debut'],$data['duree'],null,$data['motif'],$data['state']);
+			$this->db->insert('Absence',$idChef,$data['debut'],$data['duree'],null);
 			if ($this->db->affected_rows() > 0) {
 				return true;
 			}
@@ -69,7 +37,7 @@ class ModelAbsences extends CI_Model{
 			//$this->db->insert('TypeMission',	
 			$this->ModelTypeMission->createTypeMission($data[state]);
 			if($this->db->affected_rows() > 0){
-			$this->db->insert('Absence',$idDemandeur,$data['debut'],$data['duree'],null,$data['motif'],$data['state']);
+			$this->db->insert('Absence',$idChef,$data['debut'],$data['duree'],null);
 			if ($this->db->affected_rows() > 0) {
 				return true;
 			}
@@ -80,8 +48,11 @@ class ModelAbsences extends CI_Model{
 		}
 		} 
 	}
-	}*/
+	}
 
+	/**
+	*@return nombre d'absence de l employé
+	**/
 	public function nombre_absence_obtenu($id_employe){
 		$check = (
 			"idEmploye =" . "'" .$id_employe
@@ -102,24 +73,7 @@ class ModelAbsences extends CI_Model{
 	*
 	**/
 	//manque les notifications
-	public function update_absence($id_employe,$id_absence,$accept){
-		$data = array(
-        'etat' => $accept,
-		);
 
-		$array = array('idEmploye' => $id_employe, 'idAbsence' => $id_absence);
-		$this->db->where($array);
-
-		$this->db->update('Absence', $data);
-		if ($this->db->affected_rows() > 0) {
-				//creer notification
-				return true;
-					}
-		else 
-			return false;
-
-		
-	}
 	/**
 	**/
 	//ok
@@ -130,20 +84,16 @@ class ModelAbsences extends CI_Model{
 
 	}
 	/**
-	*@return tableau contenant tous les congés et les données de la table qui sont null ou false 
+	*@return
 	**/
-	public function get_all_Absence(){
+	/*public function get_all_Absence(){
+		$check="etat=null OR etat=false";
 		$this->db->select('*');
 		$this->db->from('Absence');
+		$this->db->where($check);
 		$query = $this->db->get();
-		if ($query->num_rows() > 0)
-		{
-			return $query->result();
-		} 
-		else 
-		{
-			return false;
-		}
-	}
+		return $query;
+	}**/
 
 }
+?>

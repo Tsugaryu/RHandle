@@ -14,36 +14,26 @@ class ModelConge extends CI_Model{
 	*@author  Axel Durand
 	**/
 	//incomplete
-	public function createConge($data,$idDemandeur){
-		$state=null;
-		$checkUn = (
-			"idEmployé =" . "'" .$idDemandeur
-			. "' AND " 
-			."dateDebut >=" . "'" .  $data['dateDebut']
-			."' AND " 
-			."dateFin <=" . "'" .  $data['dateFin']
-			. "'"
-		);
+	public function createConge($data){
 		
 		//vérifier limite du nombre de congé
-		if(nombre_conge_obtenu($idDemandeur)<25){
-		$checkDeux;
-		$this->db->select('*');
-		$this->db->from('TypeMission');
-		$this->db->where($check);
-		$this->db->limit(1);
-
-		$query = $this->db->get();
-
-		if ($query->num_rows() == 0) {
-			$this->db->insert('Conge',$idDemandeur,$data['dateDebut'],$data['dateFin'],$data['motif'],$state);
+		$buffer=$this->nombre_conge_obtenu($data['idEmploye']);
+		print_r("Buffer=   ".$buffer[0]->nbrCongeObtenu);
+		if($buffer[0]->nbrCongeObtenu<=25){
+		$this->db->insert('Conge',$data);
 			if ($this->db->affected_rows() > 0) {
+				print("Données bien inséré");
 				return true;
 			}
-		} else {
+		 else {
+			print("Données pas bien inséré");
 			return false;
 		}
-	}
+	  }
+	  else{
+		 	print("   Retournez au travail !");
+
+	  }
 	}
 
 	/**
@@ -55,14 +45,21 @@ class ModelConge extends CI_Model{
 			"idEmploye =" . "'" .$id_employe
 		);
 		/*Compte nombre de Congé*/
-		$this->db->select('COUNT(*)');
-		$this->db->from('Conge');
-		$this->db->where($check);
-		$this->db->limit(1);
+		$this->db->select('nbrCongeObtenu');
+		//$this->db->select('COUNT(*)');
+		$this->db->from('Employe');
+		$this->db->where("id",$id_employe);
+		
 
 		$query = $this->db->get();
-
-		return $query;
+			if ($query->num_rows() > 0)
+			{
+				return $query->result();
+			} 
+			else 
+			{
+				return false;
+			}
 
 		}
 	/**
@@ -82,6 +79,7 @@ class ModelConge extends CI_Model{
 		$this->db->update('Conge', $data);
 		if ($this->db->affected_rows() > 0) {
 				//creer notification
+				print("ok");
 				return true;
 					}
 		else 
@@ -106,10 +104,9 @@ class ModelConge extends CI_Model{
 	*/
 
 		public function get_name_by_id($id){
-			$check="id=".$id;
 			$this->db->select('nom');
 			$this->db->from(' Employe');
-			$this->db->where($check);
+			$this->db->where('id',$id);
 			$query = $this->db->get();
 			if ($query->num_rows() > 0)
 			{
@@ -122,10 +119,9 @@ class ModelConge extends CI_Model{
 
 		}
 			public function get_prenom_by_id($id){
-			$check="id=".$id;
 			$this->db->select('prenom');
 			$this->db->from(' Employe');
-			$this->db->where($check);
+			$this->db->where("id",$id);
 			$query = $this->db->get();
 			if ($query->num_rows() > 0)
 			{
@@ -138,10 +134,9 @@ class ModelConge extends CI_Model{
 
 		}
 		public function get_conge_obtenu_by_id($id){
-			$check="id=".$id;
 			$this->db->select('nbrCongeObtenu');
 			$this->db->from(' Employe');
-			$this->db->where($check);
+			$this->db->where("id",$id);
 			$query = $this->db->get();
 			if ($query->num_rows() > 0)
 			{
@@ -168,6 +163,23 @@ class ModelConge extends CI_Model{
 		{
 			return false;
 		}
+	}
+		public function calculer_date($date,$duree){
+		$this->db->select('ADDDATE('.$date.','.$duree.') AS temps ');
+		$this->db->from('Conge');
+		$this->db->where('debut',$date);
+		$query = $this->db->get();
+		if ($query->num_rows() > 0)
+		{
+			return $query->result();
+		} 
+		else 
+		{
+			return false;
+		}
+
+
+		
 	}
 
 }

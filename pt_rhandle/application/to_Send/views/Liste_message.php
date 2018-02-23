@@ -1,8 +1,8 @@
-		<h2>Message reçu</h2>
-		
+		<h2>Liste des demandes de congé</h2>
+			<!-- Afficher les différents congés-->
 				<?php 
 				//pas fini
-	 //print_r($message);
+	 print_r($message);
    echo "<table>";
    if($message==false){
     print("Vous n avez pas reçu de message");
@@ -13,7 +13,7 @@
               echo "<tr>";
 
                 echo "<td>";
-                echo "Objet:".$line->objet;
+                echo $line->objet;
                 echo "</td>";
 
 
@@ -30,21 +30,11 @@
 
               echo "<tr>";
                 echo "<td>";
-                if($line->etat==0){
-                   echo "Non Lu:";
-                }
-                else{
-                   echo "Lu:";
-                }
-               
+                echo "Lu:".$line->etat;
                 echo "</td>";
+ 
                 echo "<td>";
-                if(isset($line->pieceJointe)){
-                echo "PJ:".$line->pieceJointe;
-                }
-                else{
-                  echo "PJ:Sans objet";
-                }
+                echo "PJ:";
                 echo "</td>";
 
                 echo "<td>";
